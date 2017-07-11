@@ -4,21 +4,32 @@
 #include<QTextStream>
 
 QTextStream out(stdout);
+int last;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     fileMenu = menuBar()->addMenu("Element");
+    operationMenu = menuBar()->addMenu("Operation");
+    exportElements = new QAction("Export",this);
+    exportElements->setShortcut(QKeySequence::Save);
+    exportElements->setStatusTip("Export all elements to File XML");
     createElement = new QAction("Create",this);
     createElement->setShortcut(QKeySequence::New);
     createElement->setStatusTip("Create new element");
     deleteElementAction = new QAction("Delete",this);
     deleteElementAction->setShortcut(QKeySequence::Delete);
     deleteElementAction->setStatusTip("Delete current element");
+    updateElementAction = new QAction("Edit",this);
+    updateElementAction->setShortcut(QKeySequence::Forward);
+    updateElementAction->setStatusTip("Update select element");
+    connect(updateElementAction,SIGNAL(triggered(bool)),this,SLOT(updateElement()));
     connect(createElement,SIGNAL(triggered(bool)),this, SLOT(createNewElement()));
     connect(deleteElementAction,SIGNAL(triggered(bool)),this,SLOT(deleteElement()));
+    connect(exportElements,SIGNAL(triggered(bool)),this,SLOT(clickExportElements()));
     fileMenu->addAction(createElement);
     fileMenu->addAction(deleteElementAction);
+    fileMenu->addAction(updateElementAction);
 
     listOfElementWidget = new QListWidget;    // make the ListWidgetItems, and assign them to the list_widget
 
@@ -66,4 +77,26 @@ void MainWindow::deleteElement()
     int i = listOfElementWidget->currentIndex().row();
     elements.removeAt(i);
     update();
+}
+
+void MainWindow::updateElement()
+{
+    last = listOfElementWidget->currentIndex().row();
+    DialogEdit *d = new DialogEdit(this,elements.at(last));
+    d->show();
+    d->setModal(true);
+
+    connect(d,SIGNAL(update(Element)),this,SLOT(updatedDialog(Element)));
+}
+
+void MainWindow::updatedDialog(Element element)
+{
+    elements.removeAt(last);
+    elements.append(element);
+    update();
+}
+
+void MainWindow::clickExportElements()
+{
+
 }

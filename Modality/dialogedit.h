@@ -16,10 +16,12 @@ class DialogEdit : public QDialog
 
 public:
     DialogEdit(QWidget *parent = 0);
+    DialogEdit(QWidget *parent, Element element);
     ~DialogEdit();
     Element element;
 
 private:
+    void createView(bool update);
     QGridLayout *mainLayout;
     QGridLayout *buttonsLayout;
     QGridLayout *elementLayout;
@@ -32,9 +34,11 @@ private:
 private slots:
     void clickCancelButton();
     void clickCreateButton();
+    void clickUpdateButton();
 
 signals:
     void generate(Element element);
+    void update(Element element);
 };
 
 #endif // DIALOGEDIT_H
