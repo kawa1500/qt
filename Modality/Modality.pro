@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     dialogedit.cpp \
-    element.cpp
+    element.cpp \
+    xmlhandler.cpp
 
 HEADERS += \
         mainwindow.h \
     dialogedit.h \
-    element.h
+    element.h \
+    xmlhandler.h
 
 FORMS += \
         mainwindow.ui \

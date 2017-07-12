@@ -17,25 +17,27 @@ public:
 
 private:
     QList<Element> elements;
+    QListWidget *listOfElementWidget;
+    QGridLayout *mainLayout;
     QMenu *fileMenu;
     QAction *createElement;
     QAction *deleteElementAction;
     QAction *updateElementAction;
-    QListWidget *listOfElementWidget;
-    QGridLayout *mainLayout;
     QMenu *operationMenu;
-    QAction *exportElements;
+    QAction *exportElementsAction;
 
 private slots:
     void finishedDialog(Element element);
     void updatedDialog(Element element);
-    void createNewElement();
-    void deleteElement();
-    void updateElement();
+    void clickCreateNewElement();
+    void clickDeleteElement();
+    void clickUpdateElement();
     void clickExportElements();
 
 private:
     void update();
+    void createMenu();
+    void createView();
 };
 
 #endif // MAINWINDOW_H
