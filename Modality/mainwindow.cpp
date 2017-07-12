@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setCentralWidget(new QWidget);
     centralWidget()->setLayout(mainLayout);
+
+    update();
 }
 
 MainWindow::~MainWindow()
@@ -48,19 +50,18 @@ void MainWindow::createMenu()
     exportElementsAction->setShortcut(QKeySequence::Save);
     exportElementsAction->setStatusTip("Export all elements to File XML");
 
+    importElementsAction = new QAction("Import",this);
+    importElementsAction->setShortcut(QKeySequence::Open);
+    importElementsAction->setStatusTip("Import all elements from XML file");
+
     operationMenu->addAction(exportElementsAction);
+    operationMenu->addAction(importElementsAction);
 
     connect(updateElementAction,SIGNAL(triggered(bool)),this,SLOT(clickUpdateElement()));
     connect(createElement,SIGNAL(triggered(bool)),this, SLOT(clickCreateNewElement()));
     connect(deleteElementAction,SIGNAL(triggered(bool)),this,SLOT(clickDeleteElement()));
     connect(exportElementsAction,SIGNAL(triggered(bool)),this,SLOT(clickExportElements()));
-
-    if(elements.size()==0)
-    {
-        deleteElementAction->setEnabled(false);
-        updateElementAction->setEnabled(false);
-        exportElementsAction->setEnabled(false);
-    }
+    connect(importElementsAction,SIGNAL(triggered(bool)),this,SLOT(clickImportElements()));
 }
 
 void MainWindow::createView()
@@ -77,18 +78,17 @@ void MainWindow::update()
     {
         listOfElementWidget->addItem(e.info());
     }
+    bool enable=true;
+    if(elements.size()<=0)enable=false;
+    deleteElementAction->setEnabled(enable);
+    updateElementAction->setEnabled(enable);
+    exportElementsAction->setEnabled(enable);
 }
 
 void MainWindow::finishedDialog(Element element)
 {
     elements.append(element);
     update();
-    if(!deleteElementAction->isEnabled())
-    {
-        deleteElementAction->setEnabled(true);
-        updateElementAction->setEnabled(true);
-        exportElementsAction->setEnabled(true);
-    }
 }
 
 void MainWindow::updatedDialog(Element element)
@@ -110,12 +110,6 @@ void MainWindow::clickDeleteElement()
 {
     int i = listOfElementWidget->currentIndex().row();
     elements.removeAt(i);
-    if(elements.size()==0)
-    {
-        deleteElementAction->setEnabled(false);
-        updateElementAction->setEnabled(false);
-        exportElementsAction->setEnabled(false);
-    }
     update();
 }
 
@@ -135,4 +129,13 @@ void MainWindow::clickExportElements()
     out<<dir<<endl;
     XmlHandler xml(dir);
     xml.save(elements);
+}
+
+void MainWindow::clickImportElements()
+{
+    QString dir = QFileDialog::getOpenFileName(this,"Open File",QDir::currentPath(),"*.xml");
+    out<<dir<<endl;
+    XmlHandler xml(dir);
+    elements = xml.getList();
+    update();
 }

@@ -11,13 +11,15 @@ class XmlHandler
 public:
     XmlHandler(const QString& location);
     void save(const QList<Element>& elements);
+    QList<Element> getList();
 
 private:
     QString filelocation;
     QString filename;
 
 private:
-    const QDomElement& convertElement(const Element& element);
+    QDomElement convertElement(Element element);
+    void add_Param(QDomElement &elem, const QString name, const QString value);
 };
 
 #endif // XMLHANDLER_H

@@ -25,6 +25,7 @@ private:
     QAction *updateElementAction;
     QMenu *operationMenu;
     QAction *exportElementsAction;
+    QAction *importElementsAction;
 
 private slots:
     void finishedDialog(Element element);
@@ -33,6 +34,7 @@ private slots:
     void clickDeleteElement();
     void clickUpdateElement();
     void clickExportElements();
+    void clickImportElements();
 
 private:
     void update();
