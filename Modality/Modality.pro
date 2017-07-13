@@ -36,6 +36,3 @@ HEADERS += \
     element.h \
     xmlhandler.h
 
-FORMS += \
-        mainwindow.ui \
-    dialogedit.ui

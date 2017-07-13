@@ -5,6 +5,7 @@
 #include "element.h"
 
 class QDomElement;
+class QDomNode;
 
 class XmlHandler
 {
@@ -19,6 +20,7 @@ private:
 
 private:
     QDomElement convertElement(Element element);
+    Element convertQDomNode(QDomNode element);
     void add_Param(QDomElement &elem, const QString name, const QString value);
 };
 
