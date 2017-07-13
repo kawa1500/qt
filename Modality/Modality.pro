@@ -28,17 +28,21 @@ SOURCES += \
         mainwindow.cpp \
     dialogedit.cpp \
     element.cpp \
-    xmlhandler.cpp
+    xmlhandler.cpp \
+    dialogfilter.cpp
 
 HEADERS += \
         mainwindow.h \
     dialogedit.h \
     element.h \
-    xmlhandler.h
+    xmlhandler.h \
+    dialogfilter.h
 
 DISTFILES += \
     icon.png
 
 RESOURCES += \
     resorces.qrc
+
+FORMS +=
 

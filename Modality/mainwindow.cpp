@@ -43,6 +43,17 @@ void MainWindow::createMenu()
     fileMenu->addAction(createElement);
     fileMenu->addAction(deleteElementAction);
     fileMenu->addAction(updateElementAction);
+    filterElementMenu = fileMenu->addMenu("Filter");
+    sortElementMenu = fileMenu->addMenu("Sort by");
+
+    sortByNameAction = new QAction("Name",this);
+    sortByNameAction->setStatusTip("Sort element by name");
+
+    sortByAgeAction = new QAction("Age",this);
+    sortByAgeAction->setStatusTip("Sort element by age");
+
+    sortElementMenu->addAction(sortByNameAction);
+    sortElementMenu->addAction(sortByAgeAction);
 
     operationMenu = menuBar()->addMenu("Operation");
 
@@ -62,6 +73,8 @@ void MainWindow::createMenu()
     connect(deleteElementAction,SIGNAL(triggered(bool)),this,SLOT(clickDeleteElement()));
     connect(exportElementsAction,SIGNAL(triggered(bool)),this,SLOT(clickExportElements()));
     connect(importElementsAction,SIGNAL(triggered(bool)),this,SLOT(clickImportElements()));
+    connect(sortByNameAction,SIGNAL(triggered(bool)),this,SLOT(sortByName()));
+    connect(sortByAgeAction,SIGNAL(triggered(bool)),this,SLOT(sortByAge()));
 }
 
 void MainWindow::createView()
@@ -70,6 +83,8 @@ void MainWindow::createView()
     mainLayout = new QGridLayout;
     mainLayout->addWidget(listOfElementWidget);
     setWindowIcon(QIcon(":/icon.png"));
+
+    connect(listOfElementWidget,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(clickUpdateElement()));
 }
 
 void MainWindow::update()
@@ -84,6 +99,8 @@ void MainWindow::update()
     deleteElementAction->setEnabled(enable);
     updateElementAction->setEnabled(enable);
     exportElementsAction->setEnabled(enable);
+    filterElementMenu->setEnabled(enable);
+    sortElementMenu->setEnabled(enable);
 }
 
 void MainWindow::finishedDialog(Element element)
@@ -95,6 +112,12 @@ void MainWindow::finishedDialog(Element element)
 void MainWindow::updatedDialog(Element element)
 {
     elements.replace(last,element);
+    update();
+}
+
+void MainWindow::updatedDialog(QList<Element> elements)
+{
+    this->elements=elements;
     update();
 }
 
@@ -138,5 +161,17 @@ void MainWindow::clickImportElements()
     out<<dir<<endl;
     XmlHandler xml(dir);
     elements = xml.getList();
+    update();
+}
+
+void MainWindow::sortByName()
+{
+    qSort(elements.begin(), elements.end(), Element::sortByName);
+    update();
+}
+
+void MainWindow::sortByAge()
+{
+    qSort(elements.begin(), elements.end(), Element::sortByAge);
     update();
 }
