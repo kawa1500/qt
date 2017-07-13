@@ -69,6 +69,7 @@ void MainWindow::createView()
     listOfElementWidget = new QListWidget;
     mainLayout = new QGridLayout;
     mainLayout->addWidget(listOfElementWidget);
+    setWindowIcon(QIcon(":/icon.png"));
 }
 
 void MainWindow::update()

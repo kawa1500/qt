@@ -36,3 +36,9 @@ HEADERS += \
     element.h \
     xmlhandler.h
 
+DISTFILES += \
+    icon.png
+
+RESOURCES += \
+    resorces.qrc
+
