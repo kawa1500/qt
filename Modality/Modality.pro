@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xml
+QT       += core gui xml printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,14 +29,20 @@ SOURCES += \
     dialogedit.cpp \
     element.cpp \
     xmlhandler.cpp \
-    dialogfilter.cpp
+    dialogfilter.cpp \
+    dialoggenerate.cpp \
+    tableprinter.cpp \
+    mymodel.cpp
 
 HEADERS += \
         mainwindow.h \
     dialogedit.h \
     element.h \
     xmlhandler.h \
-    dialogfilter.h
+    dialogfilter.h \
+    dialoggenerate.h \
+    tableprinter.h \
+    mymodel.h
 
 DISTFILES += \
     icon.png

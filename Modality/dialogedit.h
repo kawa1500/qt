@@ -9,6 +9,8 @@ class QSpinBox;
 class QLineEdit;
 class QGroupBox;
 class QPushButton;
+class QDoubleSpinBox;
+class QCheckBox;
 
 class DialogEdit : public QDialog
 {
@@ -22,12 +24,25 @@ public:
 
 private:
     void createView(bool update);
+    void createElement();
     QGridLayout *mainLayout;
     QGridLayout *buttonsLayout;
     QGridLayout *elementLayout;
     QGroupBox *mainGroup;
-    QSpinBox *ageSpinBox;
+
     QLineEdit *nameLineEdit;
+    QSpinBox *createDaySpinBox;
+    QSpinBox *dayToPaySpinBox;
+    QLineEdit *nameRecipientLineEdit;
+    QLineEdit *addresRecipientLineEdit;
+    QLineEdit *numberAccountLineEdit;
+    QDoubleSpinBox *valueSpinBox;
+    QLineEdit *titleLineEdit;
+    QLineEdit *templateTitleLineEdit;
+    QCheckBox *changableCheckBox;
+    QCheckBox *parityCheckBox;
+    QCheckBox *nonParityCheckBox;
+
     QPushButton *cancelButton;
     QPushButton *createButton;
 
@@ -35,6 +50,7 @@ private slots:
     void clickCancelButton();
     void clickCreateButton();
     void clickUpdateButton();
+    void isChangable();
 
 signals:
     void generate(Element element);

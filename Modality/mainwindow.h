@@ -26,25 +26,31 @@ private:
     QMenu *operationMenu;
     QAction *exportElementsAction;
     QAction *importElementsAction;
-    QMenu *filterElementMenu;
+    QAction *filterElementMenu;
     QMenu *sortElementMenu;
     QAction *sortByNameAction;
-    QAction *sortByAgeAction;
+    QAction *sortByValueAction;
+    QMenu *generateElementsMenu;
+    QAction *billAction;
 
 private slots:
     void finishedDialog(Element element);
     void updatedDialog(Element element);
     void updatedDialog(QList<Element> elements);
+    void filterDialog(QList<Element> elements);
     void clickCreateNewElement();
     void clickDeleteElement();
     void clickUpdateElement();
     void clickExportElements();
     void clickImportElements();
+    void clickFilterElements();
     void sortByName();
-    void sortByAge();
+    void sortByValue();
+    void clickGenerateElements();
 
 private:
     void update();
+    void update(QList<Element> mElements);
     void createMenu();
     void createView();
 };

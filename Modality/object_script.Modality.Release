@@ -1,0 +1,16 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\dialogedit.o
+./release\element.o
+./release\xmlhandler.o
+./release\dialogfilter.o
+./release\dialoggenerate.o
+./release\tableprinter.o
+./release\mymodel.o
+./release\qrc_resorces.o
+./release\moc_mainwindow.o
+./release\moc_dialogedit.o
+./release\moc_dialogfilter.o
+./release\moc_dialoggenerate.o
+);

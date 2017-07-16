@@ -3,6 +3,8 @@
 #include "dialogedit.h"
 #include<QTextStream>
 #include "xmlhandler.h"
+#include "dialogfilter.h"
+#include "dialoggenerate.h"
 
 QTextStream out(stdout);//stream to console output
 int last;//store index of element to edit
@@ -40,20 +42,22 @@ void MainWindow::createMenu()
     updateElementAction->setShortcut(QKeySequence::Forward);
     updateElementAction->setStatusTip("Update select element");
 
+    filterElementMenu = new QAction("Filter",this);//create description
+
     fileMenu->addAction(createElement);
     fileMenu->addAction(deleteElementAction);
     fileMenu->addAction(updateElementAction);
-    filterElementMenu = fileMenu->addMenu("Filter");
+    fileMenu->addAction(filterElementMenu);
     sortElementMenu = fileMenu->addMenu("Sort by");
 
     sortByNameAction = new QAction("Name",this);
     sortByNameAction->setStatusTip("Sort element by name");
 
-    sortByAgeAction = new QAction("Age",this);
-    sortByAgeAction->setStatusTip("Sort element by age");
+    sortByValueAction = new QAction("Value",this);
+    sortByValueAction->setStatusTip("Sort element by value");
 
     sortElementMenu->addAction(sortByNameAction);
-    sortElementMenu->addAction(sortByAgeAction);
+    sortElementMenu->addAction(sortByValueAction);
 
     operationMenu = menuBar()->addMenu("Operation");
 
@@ -68,13 +72,19 @@ void MainWindow::createMenu()
     operationMenu->addAction(exportElementsAction);
     operationMenu->addAction(importElementsAction);
 
+    generateElementsMenu = menuBar()->addMenu("Generate Month");
+    billAction = new QAction("Bill",this);
+    generateElementsMenu->addAction(billAction);
+
     connect(updateElementAction,SIGNAL(triggered(bool)),this,SLOT(clickUpdateElement()));
     connect(createElement,SIGNAL(triggered(bool)),this, SLOT(clickCreateNewElement()));
     connect(deleteElementAction,SIGNAL(triggered(bool)),this,SLOT(clickDeleteElement()));
     connect(exportElementsAction,SIGNAL(triggered(bool)),this,SLOT(clickExportElements()));
     connect(importElementsAction,SIGNAL(triggered(bool)),this,SLOT(clickImportElements()));
     connect(sortByNameAction,SIGNAL(triggered(bool)),this,SLOT(sortByName()));
-    connect(sortByAgeAction,SIGNAL(triggered(bool)),this,SLOT(sortByAge()));
+    connect(sortByValueAction,SIGNAL(triggered(bool)),this,SLOT(sortByValue()));
+    connect(filterElementMenu,SIGNAL(triggered(bool)),this,SLOT(clickFilterElements()));
+    connect(billAction,SIGNAL(triggered(bool)),this,SLOT(clickGenerateElements()));
 }
 
 void MainWindow::createView()
@@ -89,13 +99,18 @@ void MainWindow::createView()
 
 void MainWindow::update()
 {
+    update(elements);
+}
+
+void MainWindow::update(QList<Element> mElements)
+{
     listOfElementWidget->clear();
-    for(Element e:elements)
+    for(Element e:mElements)
     {
         listOfElementWidget->addItem(e.info());
     }
     bool enable=true;
-    if(elements.size()<=0)enable=false;
+    if(mElements.size()<=0)enable=false;
     deleteElementAction->setEnabled(enable);
     updateElementAction->setEnabled(enable);
     exportElementsAction->setEnabled(enable);
@@ -170,8 +185,30 @@ void MainWindow::sortByName()
     update();
 }
 
-void MainWindow::sortByAge()
+void MainWindow::sortByValue()
 {
-    qSort(elements.begin(), elements.end(), Element::sortByAge);
+    qSort(elements.begin(), elements.end(), Element::sortByValue);
     update();
+}
+
+void MainWindow::clickFilterElements()
+{
+    DialogFilter *d = new DialogFilter(elements,this);
+    d->show();
+    d->setModal(true);
+
+    connect(d,SIGNAL(filter(QList<Element>)),this,SLOT(filterDialog(QList<Element>)));
+}
+
+void MainWindow::filterDialog(QList<Element> elements)
+{
+    update(elements);
+}
+
+void MainWindow::clickGenerateElements()
+{
+    out<<"click Generate"<<endl;
+    DialogGenerate *d = new DialogGenerate(this,elements);
+    d->show();
+    d->setModal(true);
 }

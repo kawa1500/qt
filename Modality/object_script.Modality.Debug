@@ -1,0 +1,16 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\dialogedit.o
+./debug\element.o
+./debug\xmlhandler.o
+./debug\dialogfilter.o
+./debug\dialoggenerate.o
+./debug\tableprinter.o
+./debug\mymodel.o
+./debug\qrc_resorces.o
+./debug\moc_mainwindow.o
+./debug\moc_dialogedit.o
+./debug\moc_dialogfilter.o
+./debug\moc_dialoggenerate.o
+);
