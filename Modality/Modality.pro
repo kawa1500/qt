@@ -31,7 +31,6 @@ SOURCES += \
     xmlhandler.cpp \
     dialogfilter.cpp \
     dialoggenerate.cpp \
-    tableprinter.cpp \
     mymodel.cpp
 
 HEADERS += \
@@ -41,7 +40,6 @@ HEADERS += \
     xmlhandler.h \
     dialogfilter.h \
     dialoggenerate.h \
-    tableprinter.h \
     mymodel.h
 
 DISTFILES += \

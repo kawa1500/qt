@@ -1,0 +1,17 @@
+<!DOCTYPE data>
+<elements>
+ <element>
+  <name>Konsalnet</name>
+  <createDay>5</createDay>
+  <daysToPay>14</daysToPay>
+  <nameRecipient>KONSALNET SECURITY SP. Z O.O.</nameRecipient>
+  <addresRecipient>Jana Kazimierza 55 01-267 Warszawa</addresRecipient>
+  <numberAccount>11 1140 1560 2039 0657 7900 0000</numberAccount>
+  <value>30.75</value>
+  <title>Zapłata za fakturę M/35/05/17/00141; symbol klienta 00065779</title>
+  <chanabletitle>true</chanabletitle>
+  <templateTitle>Zapłata za fakturę {numer_faktury}; symbol klienta 00065779</templateTitle>
+  <parityMonth>true</parityMonth>
+  <nonParityMonth>true</nonParityMonth>
+ </element>
+</elements>

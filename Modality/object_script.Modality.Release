@@ -6,7 +6,6 @@ INPUT(
 ./release\xmlhandler.o
 ./release\dialogfilter.o
 ./release\dialoggenerate.o
-./release\tableprinter.o
 ./release\mymodel.o
 ./release\qrc_resorces.o
 ./release\moc_mainwindow.o
